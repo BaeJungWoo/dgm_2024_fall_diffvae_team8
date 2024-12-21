@@ -195,9 +195,11 @@ class DDPMWrapper(pl.LightningModule):
             recons = self.vae(z)
             recons = 2 * recons - 1
 
-            mu, logvar = self.vae.encode(recons)
-            uncertainty = torch.mean(torch.sigmoid(torch.exp(logvar)-2),dim=1,keepdim=True)
-            recons = recons*(1-uncertainty) +  torch.randn_like(recons) * uncertainty
+
+            #for stage3
+            # mu, logvar = self.vae.encode(recons)
+            # uncertainty = torch.mean(torch.sigmoid(torch.exp(logvar)-2),dim=1,keepdim=True)
+            # recons = recons*(1-uncertainty) +  torch.randn_like(recons) * uncertainty
             
             # Initial temperature scaling
             x_t = x_t * self.temp
@@ -760,6 +762,10 @@ class DDPMWrapper_new2(pl.LightningModule):
 
             # Initial temperature scaling
             x_t = x_t * self.temp
+            #for stage3
+            mu, logvar = self.vae.encode(recons)
+            uncertainty = torch.mean(torch.sigmoid(torch.exp(logvar)-2),dim=1,keepdim=True)
+            recons = recons*(1-uncertainty) +  torch.randn_like(recons) * uncertainty
 
             # Formulation-2 initial latent
             if isinstance(self.online_network, DDPMv2):

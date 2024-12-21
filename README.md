@@ -1,7 +1,7 @@
 # dgm_2024_fall_diffvae_team8
 
 
-# DDPM VAE Two-Stage Training
+## DiffuseVAE
 
 This repository provides a baseline implementation for training and inference using DDPM VAE with a two-stage process.
 
